@@ -1,2 +1,2 @@
-httpx
-parsel
+pandas
+requests
