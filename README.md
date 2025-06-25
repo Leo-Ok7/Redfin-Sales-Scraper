@@ -22,6 +22,12 @@ This is a Python tool that fetches and saves real estate data from Redfin’s in
 
 * Codebase is organized into modules for fetching, parsing, and running the script.
 
+**Instructions on running the program**
+
+1. Clone the repository
+2. Install requirements
+3. Run the CLI tool : python main.py --city "San Diego" --output csv. The scraper is currenrtly only configured to fetch listings for **San Diego**. You can also apply filters to the CLI argument -> Ex : python main.py --city "San Diego" --beds 3 --max-price 1000000 --output csv.
+
 **Extra Notes**
 
 * Uses a hardcoded Redfin GIS API URL. To scrape a different region, you need to inspect Redfin’s network traffic by looking for XHR requests to /gis? and input the appropriate URL.
@@ -33,5 +39,3 @@ This is a Python tool that fetches and saves real estate data from Redfin’s in
 **Disclaimer**
 
 Redfin.com's data is available publically so no private data is being collected. 
-
-
