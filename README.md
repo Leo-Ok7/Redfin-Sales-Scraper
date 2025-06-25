@@ -1,12 +1,12 @@
 **Redfin Sales Scraper**
 
-This is a Python tool that fetches and saves real estate data from Redfin’s internal GIS API. It pulls recently sold property listings in a specific region (example : San Diego) and exports them to a clean CSV for analysis or research.
+This is a Python tool that fetches and saves real estate data from Redfin’s internal GIS API. It pulls recently sold property listings in a specific region (example: San Diego) and exports them to a clean CSV for analysis or research.
 
 **Features**
 
 * Direct API access - Fetches sold listings directly from Redfin’s backend (no need for browser automation).
 
-* Relevant data extraction - Captures key details that includes : 
+* Relevant data extraction - Captures key details that includes the: 
 
     * Address, City
 
@@ -18,7 +18,7 @@ This is a Python tool that fetches and saves real estate data from Redfin’s in
 
     * Listing URL
 
-* Clean CSV output – Saves results as redfin_listings.csv for easy use with Excel, pandas, etc.
+* Clean CSV output - Saves results as redfin_listings.csv for easy use with Excel, pandas, etc.
 
 * Codebase is organized into modules for fetching, parsing, and running the script.
 
