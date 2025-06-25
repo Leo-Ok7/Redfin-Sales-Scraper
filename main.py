@@ -1,28 +1,39 @@
-from scraper.fetcher import fetch_redfin_gis_data
+import argparse
+import logging
+from scraper.fetcher import fetch_redfin_data
 from scraper.parser import parse_redfin_json
-import pandas as pd
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="Redfin Real Estate Scraper CLI")
+    parser.add_argument("--city", required=True, help="City to search")
+    parser.add_argument("--status", default="sold", choices=["sold", "active"], help="Listing status")
+    parser.add_argument("--beds", type=int, default=0, help="Minimum number of beds")
+    parser.add_argument("--max-price", type=int, help="Maximum listing price")
+    parser.add_argument("--output", default="csv", choices=["csv", "json", "df"], help="Output format")
+    return parser.parse_args()
 
 def main():
-    print("Starting Redfin data fetch...")
+    logging.basicConfig(level=logging.INFO)
+    args = parse_args()
 
-    raw_data = fetch_redfin_gis_data()
-    if not raw_data:
-        print("No data received from Redfin.")
-        return
-
-    print("Parsing the response...")
+    logging.info("Gathering Redfin data")
+    raw_data = fetch_redfin_data(args.city, args.status, args.beds, args.max_price)
     listings_df = parse_redfin_json(raw_data)
 
     if listings_df.empty:
-        print("No listings parsed from the response.")
+        logging.warning("No listings were found.")
         return
 
-    print(f"Parsed {len(listings_df)} listings.")
-    print(listings_df.head())
+    logging.info(f"Parsed {len(listings_df)} listings.")
 
-    output_path = "redfin_listings.csv"
-    listings_df.to_csv(output_path, index=False)
-    print(f"Saved results to {output_path}")
+    if args.output == "csv":
+        listings_df.to_csv("redfin_listings.csv", index=False)
+        logging.info("Saved to redfin_listings.csv")
+    elif args.output == "json":
+        listings_df.to_json("redfin_listings.json", orient="records")
+        logging.info("Saved to redfin_listings.json")
+    else:
+        print(listings_df.head())
 
 if __name__ == "__main__":
     main()
